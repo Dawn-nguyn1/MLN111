@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "question": "Để sản xuất ra 1000 đôi dép, công ty đầu tư 100000 USD cho nguyên liệu, vật liệu, 5000 USD cho hao mòn máy móc. Công ty đó trả 5000 USD cho công nhân, trình độ bóc lột đạt 200%. Tính giá trị (W) của 10000 đôi dép công ty sản xuất ra?",
+        "options": [
+            "A. W = 120000USD",
+            "B. W = 110000USD",
+            "C. W = 115000USD",
+            "D. W = 100000USD"
+        ],
+        "answer": "A",
+        "type": "math"
+    },
+    {
+        "id": 2,
+        "question": "Tỷ suất lợi nhuận được ký hiệu là p' được tính bằng công thức:",
+        "options": [
+            "A. p'= m/(c+v)*100%",
+            "B. p'= t/ (c+v)*100%",
+            "C. p'= m/(c+v+m)*100%",
+            "D. p'= p/(c+v)*100%"
+        ],
+        "answer": "D",
+        "type": "formula"
+    }
+]
