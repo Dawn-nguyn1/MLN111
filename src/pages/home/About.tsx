@@ -45,7 +45,7 @@ export default function About() {
                         </div> */}
                     </div>
                     <div className="animate-fade-in-right">
-                        <img src="/mwbIUJ6B3xhw.jpg" alt="Công Nghiệp Hóa" className={`rounded-lg shadow-2xl transition-all duration-300 ${theme === "dark" ? "hover:shadow-blue-500/50" : "hover:shadow-blue-300/50"}`} />
+                        <img src="/giaicap1.jpg" alt="Công Nghiệp Hóa" className={`rounded-lg shadow-2xl transition-all duration-300 ${theme === "dark" ? "hover:shadow-blue-500/50" : "hover:shadow-blue-300/50"}`} />
                     </div>
                 </div>
             </div>

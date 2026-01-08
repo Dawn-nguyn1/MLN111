@@ -14,7 +14,7 @@ export default function Nav() {
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
                 <div className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                    Công Nghiệp Hóa Việt Nam
+                    Giai Cấp Và Dân Tộc
                 </div>
                 <div className="flex items-center gap-8">
                     <div className="hidden md:flex gap-8">
