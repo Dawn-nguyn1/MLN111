@@ -12,15 +12,15 @@ export default function Vietnam() {
 
                 <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
                     <div>
-                        <img src="/ShPb8BD9Fw7G.jpg" alt="Vietnam Industry" className="rounded-lg shadow-2xl hover:shadow-blue-500/50 transition-shadow duration-300" />
+                        <img src="/giaicap5.jpg" alt="Vietnam Industry" className="rounded-lg shadow-2xl hover:shadow-blue-500/50 transition-shadow duration-300" />
                     </div>
                     <div>
-                        <h3 className="text-3xl font-bold text-blue-400 mb-6">Tóm tắt Giai Cấp - Dân Tộc - Nhân Loại</h3>
+                        <h3 className="text-3xl font-bold text-blue-400 mb-6">Tóm Tắt </h3>
                         <div className="space-y-4">
                             <div className="flex gap-4">
                                 <div className="w-1 bg-gradient-to-b from-blue-400 to-cyan-400 flex-shrink-0"></div>
                                 <div>
-                                    <h4 className="font-semibold text-blue-400 mb-1">Giai cấp và đấu tranh giai cấp</h4>
+                                    <h4 className="font-semibold text-blue-400 mb-1">Giai Cấp Và Đấu Tranh Giai Cấp</h4>
                                     <p className={theme === "dark" ? "text-slate-300" : "text-slate-700"}>
                                         Đây là nội dung nền tảng để hiểu về cấu trúc xã hội trong lịch sử
                                     </p>
