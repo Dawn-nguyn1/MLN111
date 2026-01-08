@@ -1,4 +1,4 @@
-import { Factory, TrendingUp, Globe } from "lucide-react";
+import { PersonStanding , TrendingUp, Globe } from "lucide-react";
 import { useTheme } from "../../contexts/ThemeContext";
 
 export default function Models() {
@@ -12,8 +12,8 @@ export default function Models() {
                 {desc}
             </p>
             <div className={`mt-auto p-4 rounded-lg ${theme === "dark" ? "bg-slate-900/50" : "bg-slate-100/50"}`}>
-                <p className={`text-sm ${theme === "dark" ? "text-slate-400" : "text-slate-600"}`}><strong>Thời gian:</strong> {meta1}</p>
-                <p className={`text-sm ${theme === "dark" ? "text-slate-400" : "text-slate-600"}`}><strong>Kết quả:</strong> {meta2}</p>
+                <p className={`text-sm ${theme === "dark" ? "text-slate-400" : "text-slate-600"}`}><strong></strong> {meta1}</p>
+                <p className={`text-sm ${theme === "dark" ? "text-slate-400" : "text-slate-600"}`}><strong></strong> {meta2}</p>
             </div>
         </div>
     );
@@ -22,13 +22,13 @@ export default function Models() {
         <section id="models" className={`py-20 px-4 transition-colors duration-300 ${theme === "dark" ? "bg-slate-800/50" : "bg-white"}`}>
             <div className="max-w-6xl mx-auto">
                 <h2 className="py-3 text-4xl md:text-5xl font-bold mb-16 text-center bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                    Mô Hình Công Nghiệp Hóa Trên Thế Giới
+                    Mối Quan Hệ Giữa Giai Cấp, Dân Tộc Và Nhân Loại
                 </h2>
 
                 <div className="grid md:grid-cols-3 gap-8">
-                    {card(Factory, "Mô Hình Cổ Điển", "Gắn liền với cuộc cách mạng công nghiệp lần thứ nhất, bắt đầu từ công nghiệp nhẹ.", "60-80 năm", "Ít vốn, lợi nhuận cao")}
-                    {card(TrendingUp, "Mô Hình Liên Xô", "Ưu tiên phát triển công nghiệp nặng, xây dựng hệ thống cơ sở vật chất kỹ thuật to lớn.", "—", "Nhanh chóng nhưng tốn kém")}
-                    {card(Globe, "Mô Hình Nhật Bản & NICs", "Bắt đầu từ công nghiệp nhẹ, phát triển dần theo hướng công nghiệp nặng.", "60-80 năm", "Bền vững, hiệu quả")}
+                    {card(Globe, "Nhân Loại", "Nhân loại là cộng đồng toàn diện, các yếu tố này có mối quan hệ biện chứng, ảnh hưởng lẫn nhau trong quá trình phát triển xã hội.", "", "")}
+                    {card(TrendingUp, "Dân Tộc", "Đấu tranh giải phóng dân tộc là tiền đề cho đấu tranh giai cấp.", "", "")}
+                    {card(PersonStanding, "Giai Cấp", "Giai cấp quyết định tính chất và hướng phát triển của dân tộc.", "", "")}
                 </div>
             </div>
         </section>

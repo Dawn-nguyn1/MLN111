@@ -28,39 +28,39 @@ export default function Revolutions() {
         <section id="revolutions" className={`py-20 px-4 transition-colors duration-300 ${theme === "dark" ? "bg-slate-900" : "bg-white"}`}>
             <div className="max-w-6xl mx-auto">
                 <h2 className="py-3 text-4xl md:text-5xl font-bold mb-16 text-center bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                    4 Cuộc Cách Mạng Công Nghiệp
+                    4 Hình Thức Cộng Đồng Người
                 </h2>
 
                 <div className="grid md:grid-cols-2 gap-8">
                     {card(
-                        "1.0",
-                        "Cơ Giới Hóa (1760-1840)",
-                        "Khởi phát từ nước Anh, chuyển đổi từ lao động thủ công sang lao động sử dụng máy móc, cơ giới hóa bằng việc sử dụng năng lượng nước và hơi nước.",
-                        "/mwbIUJ6B3xhw.jpg",
+                        "1",
+                        "Thị Tộc",
+"Đây là hình thức tổ chức xã hội đầu tiên trong lịch sử, nơi các thành viên cùng chung sống, lao động dựa trên những thói quen, tín ngưỡng chung và có mối quan hệ huyết thống mật thiết",
+                        "/thitoc2.jpg",
                         "bg-gradient-to-br from-blue-500 to-cyan-500"
                     )}
 
                     {card(
-                        "2.0",
-                        "Điện - Cơ Khí (1870-1960)",
-                        "Chuyển nền sản xuất cơ khí sang nền sản xuất điện – cơ khí và sang giai đoạn tự động hóa cục bộ trong sản xuất.",
-                        "/rm2qzFwye1Pc.jpg",
+                        "2",
+                        "Bộ Lạc",
+                        "Hình thành từ sự liên kết của nhiều thị tộc, bộ lạc là cộng đồng người mà các thành viên vẫn duy trì phương thức lao động chung nhưng có tổ chức xã hội chặt chẽ và quy mô lớn hơn thị tộc",
+                        "/bo-lac.jpg",
                         "bg-gradient-to-br from-cyan-500 to-blue-500"
                     )}
 
                     {card(
-                        "3.0",
-                        "Công Nghệ Thông Tin (1960-2000)",
-                        "Xuất hiện công nghệ thông tin, tự động hóa sản xuất. Máy tính và internet bắt đầu thay đổi toàn bộ quy trình sản xuất.",
-                        "/1-5.jpg",
+                        "3",
+                        "Bộ Tộc",
+                        "Xuất hiện sau bộ lạc, bộ tộc là một hình thức cộng đồng người có sự phát triển cao hơn về tổ chức xã hội và bắt đầu có sự đan xen giữa các mối quan hệ huyết thống với các quan hệ xã hội khác.",
+                        "/bo-toc.jpg",
                         "bg-gradient-to-br from-blue-500 to-cyan-500"
                     )}
 
                     {card(
-                        "4.0",
-                        "Trí Tuệ Nhân Tạo (2011-Hiện Tại)",
-                        "Xuất hiện các công nghệ mới có tính đột phá: trí tuệ nhân tạo, big data, in 3D, IoT. Tích hợp công nghệ vào mọi khía cạnh sản xuất.",
-                        "/iot-world-image-1-1515077950.jpg",
+                        "4",
+                        "Dân Tộc",
+                        "Là hình thức cộng đồng người cao nhất và ổn định nhất, được đặc trưng bởi sự thống nhất về lãnh thổ, ngôn ngữ, kinh tế, văn hóa, tâm lý và có một hệ thống nhà nước cùng pháp luật chung.",
+                        "/dantoc2.jpg",
                         "bg-gradient-to-br from-cyan-500 to-blue-500"
                     )}
                 </div>

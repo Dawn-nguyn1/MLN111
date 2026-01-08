@@ -23,28 +23,28 @@ export default function Nav() {
                             className={`transition-colors ${theme === "dark" ? "hover:text-blue-400" : "hover:text-blue-600"
                                 }`}
                         >
-                            Giới Thiệu
+                            Giai Cấp
                         </a>
                         <a
                             href="#revolutions"
                             className={`transition-colors ${theme === "dark" ? "hover:text-blue-400" : "hover:text-blue-600"
                                 }`}
                         >
-                            Cách Mạng
+                            Cộng Đồng
                         </a>
                         <a
                             href="#models"
                             className={`transition-colors ${theme === "dark" ? "hover:text-blue-400" : "hover:text-blue-600"
                                 }`}
                         >
-                            Mô Hình
+                            Mối Quan Hệ
                         </a>
                         <a
                             href="#vietnam"
                             className={`transition-colors ${theme === "dark" ? "hover:text-blue-400" : "hover:text-blue-600"
                                 }`}
                         >
-                            Việt Nam
+                            Tóm Tắt
                         </a>
                         <Link
                             href="/case-generator"

@@ -10,16 +10,16 @@ export default function Footer() {
                     <div>
                         <h3 className="text-lg font-bold text-blue-400 mb-4">Về Chúng Tôi</h3>
                         <p className={`text-sm leading-relaxed transition-colors duration-300 ${theme === "dark" ? "text-slate-400" : "text-slate-600"}`}>
-                            Tìm hiểu về công nghiệp hóa, hiện đại hóa và cách mạng công nghiệp 4.0 ở Việt Nam.
+                            Tìm hiểu về sự phát triển của từng giai cấp, cộng đồng người và mối quan hệ giữa chúng.
                         </p>
                     </div>
                     <div>
                         <h3 className="text-lg font-bold text-cyan-400 mb-4">Liên Kết</h3>
                         <ul className={`space-y-2 text-sm transition-colors duration-300 ${theme === "dark" ? "text-slate-400" : "text-slate-600"}`}>
-                            <li><a href="#about" className={`transition-colors ${theme === "dark" ? "hover:text-blue-400" : "hover:text-blue-600"}`}>Giới Thiệu</a></li>
-                            <li><a href="#revolutions" className={`transition-colors ${theme === "dark" ? "hover:text-blue-400" : "hover:text-blue-600"}`}>Cách Mạng</a></li>
-                            <li><a href="#models" className={`transition-colors ${theme === "dark" ? "hover:text-blue-400" : "hover:text-blue-600"}`}>Mô Hình</a></li>
-                            <li><a href="#vietnam" className={`transition-colors ${theme === "dark" ? "hover:text-blue-400" : "hover:text-blue-600"}`}>Việt Nam</a></li>
+                            <li><a href="#about" className={`transition-colors ${theme === "dark" ? "hover:text-blue-400" : "hover:text-blue-600"}`}>Giai Cấp</a></li>
+                            <li><a href="#revolutions" className={`transition-colors ${theme === "dark" ? "hover:text-blue-400" : "hover:text-blue-600"}`}>Cộng Đồng</a></li>
+                            <li><a href="#models" className={`transition-colors ${theme === "dark" ? "hover:text-blue-400" : "hover:text-blue-600"}`}>Mối Quan Hệ</a></li>
+                            <li><a href="#vietnam" className={`transition-colors ${theme === "dark" ? "hover:text-blue-400" : "hover:text-blue-600"}`}>Tóm Tắt</a></li>
                         </ul>
                     </div>
                     <div>
@@ -33,9 +33,9 @@ export default function Footer() {
                     <div>
                         <h3 className="text-lg font-bold text-cyan-400 mb-4">Liên Hệ</h3>
                         <ul className={`space-y-2 text-sm transition-colors duration-300 ${theme === "dark" ? "text-slate-400" : "text-slate-600"}`}>
-                            <li>Email: info@industry.vn</li>
+                            <li>Email: fptuniversity@fpt.edu.vn</li>
                             <li>Điện thoại: +84 (0) 123 456 789</li>
-                            <li>Địa chỉ: Hà Nội, Việt Nam</li>
+                            <li>Địa chỉ: Hồ Chí Minh, Việt Nam</li>
                         </ul>
                     </div>
                 </div>
