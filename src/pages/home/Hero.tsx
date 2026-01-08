@@ -40,15 +40,14 @@ export default function Hero() {
 
             <div className="relative z-10 text-center max-w-4xl mx-auto px-4 animate-fade-in">
                 <h1 className="text-6xl md:text-7xl font-bold mb-6 leading-tight">
-                    <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent">Công Nghiệp Hóa</span>
+                    <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent">Mối Quan Hệ </span>
                     <br />
                     <span className={theme === "dark" ? "text-white" : "text-slate-800"}>
-                        Hiện Đại Hóa Việt Nam
+                        Giai Cấp - Dân Tộc - Nhân Loại
                     </span>
                 </h1>
                 <p className={`text-xl md:text-2xl mb-8 leading-relaxed transition-colors duration-300 ${theme === "dark" ? "text-slate-300" : "text-slate-600"
                     }`}>
-                    Hành trình chuyển đổi từ sản xuất thủ công sang nền sản xuất hiện đại với công nghệ tiên tiến
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <Button className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white px-8 py-6 text-lg rounded-lg">
