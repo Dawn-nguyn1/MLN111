@@ -4,17 +4,20 @@ import NotFound from "./pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { AuthProvider } from "./contexts/AuthContext";
 import Home from "./pages/Home";
 import CaseGenerator from "./pages/CaseGenerator";
 import ConceptExample from "./pages/ConceptExample";
 import MindMap from "./pages/MindMap";
 import FinalMindMap from "./pages/FinalMindMap";
 import Practice from "./pages/Practice";
+import Login from "./pages/Login";
 
 function Router() {
   return (
     <Switch>
       <Route path={"/"} component={Home} />
+      <Route path={"/login"} component={Login} />
       <Route path={"/case-generator"} component={CaseGenerator} />
       <Route path={"/concept-example"} component={ConceptExample} />
       <Route path={"/mindmap"} component={MindMap} />
@@ -39,10 +42,12 @@ function App() {
         defaultTheme="dark"
         switchable
       >
-        <TooltipProvider>
-          <Toaster />
-          <Router />
-        </TooltipProvider>
+        <AuthProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Router />
+          </TooltipProvider>
+        </AuthProvider>
       </ThemeProvider>
     </ErrorBoundary>
   );
