@@ -12,7 +12,7 @@ export interface MindmapResponse {
 }
 
 /**
- * Direct Google Gemini integration for generating Marxism-Leninism Political Economy mindmaps.
+ * Direct Google Gemini integration for generating Social Classes and Clans mindmaps.
  * Requires VITE_GEMINI_API_KEY in your environment (e.g., .env.local).
  * Note: Calling Gemini from the browser exposes the API key; prefer a backend proxy for production.
  */
@@ -22,54 +22,16 @@ export const useGeminiMindmap = () => {
     const [mindmapData, setMindmapData] = useState<MindmapResponse | null>(null);
 
     const apiKey = import.meta.env.VITE_GEMINI_API_KEY as string | undefined;
-    const model = 'gemini-2.5-pro'; // fast and cost-effective; switch to gemini-1.5-pro if needed
+    const model = 'gemini-2.5-flash-lite'; // Same as working CaseGenerator
 
-    const systemPrompt = `You are an  "Marxism-Leninism Political Economy" AI assistant that generates structured mindmaps 
-- Use information from Political Economy 
-If the requested content is not related to the Political Economy, respond with:  
-  "Xin lỗi, tôi không thể trả lời các câu hỏi ngoài phạm vi Kinh tế Chính trị Mác-Lênin."
-### Goal
-Generate a clear, hierarchical mindmap that represents the main topic, its subtopics, and their relationships.
-### Output Format
-Always respond in **valid JSON format** (UTF-8 encoded).  
-Follow this structure strictly:
+    const systemPrompt = `You are a JSON generator. Generate ONLY valid JSON mindmap about social classes/clans. No explanations, no markdown, no extra text.
 
-{
-  "topic": "<main topic>",
-  "nodes": [
-    {
-      "id": "root",
-      "name": "<main topic>",
-      "children": [
-        {
-          "id": "<unique_id_1>",
-          "name": "<subtopic_1>",
-          "children": [
-            {
-              "id": "<unique_id_1_1>",
-              "name": "<sub-subtopic>",
-              "children": []
-            }
-          ]
-        },
-        {
-          "id": "<unique_id_2>",
-          "name": "<subtopic_2>",
-          "children": []
-        }
-      ]
-    }
-  ]
-}
+If unrelated topic, respond with EXACTLY: {"error": "Xin lỗi, tôi không thể trả lời các câu hỏi ngoài phạm vi Giai cấp và Giai tộc."}
 
-### Guidelines
-- Use **concise and meaningful** node names (1–5 words).
-- Limit depth to **3–4 levels** unless user requests deeper detail.
-- Avoid markdown, explanations, or natural language — **JSON only**.
-- The first node must represent the main topic.
-- If user provides long text, extract key ideas and structure them hierarchically.
-- Include at least 3–5 main branches if possible.
-- Keep IDs unique and lowercase (you can use short words or numbers).`;
+Response format (EXACTLY):
+{"topic": "main topic", "nodes": [{"id": "root", "name": "main topic", "children": [{"id": "id1", "name": "subtopic1", "children": []}, {"id": "id2", "name": "subtopic2", "children": []}]}]}
+
+Max 3 levels, concise names.`;
 
     const generateMindmap = useCallback(async (userTopicOrText: string) => {
         if (!apiKey) {
@@ -77,29 +39,74 @@ Follow this structure strictly:
             return;
         }
 
+        const extractFirstBalancedJsonObject = (input: string): string | null => {
+            const start = input.indexOf('{');
+            if (start < 0) return null;
+
+            let depth = 0;
+            let inString = false;
+            let escaped = false;
+
+            for (let i = start; i < input.length; i++) {
+                const ch = input[i];
+
+                if (inString) {
+                    if (escaped) {
+                        escaped = false;
+                        continue;
+                    }
+                    if (ch === '\\') {
+                        escaped = true;
+                        continue;
+                    }
+                    if (ch === '"') {
+                        inString = false;
+                    }
+                    continue;
+                }
+
+                if (ch === '"') {
+                    inString = true;
+                    continue;
+                }
+                if (ch === '{') depth++;
+                if (ch === '}') depth--;
+
+                if (depth === 0) {
+                    return input.slice(start, i + 1);
+                }
+            }
+
+            return null;
+        };
+
         setLoading(true);
         setError(null);
         // Clear previous mindmap immediately to avoid showing stale data while generating
         setMindmapData(null);
 
+        // Add delay to avoid rate limiting
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
         try {
-            const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(apiKey)}`;
+            const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
             const prompt = `${systemPrompt}\n\n### Main Topic or Input\n${userTopicOrText}`;
 
             const res = await fetch(endpoint, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                },
                 body: JSON.stringify({
-                    contents: [
-                        { role: 'user', parts: [{ text: prompt }] }
-                    ],
+                    contents: [{
+                        parts: [{
+                            text: prompt
+                        }]
+                    }],
                     generationConfig: {
                         temperature: 0.2,
-                        topP: 0.95,
-                        topK: 40,
-                        maxOutputTokens: 4000,
-                        response_mime_type: 'application/json'
+                        maxOutputTokens: 900
                     }
                 })
             });
@@ -110,31 +117,32 @@ Follow this structure strictly:
             }
 
             const data = await res.json();
-            const text: string | undefined = data?.candidates?.[0]?.content?.parts?.[0]?.text
-                ?? data?.candidates?.[0]?.content?.parts?.[0]?.stringValue; // fallback just in case
-
+            const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+  
             if (!text) {
-                throw new Error('Không nhận được phản hồi từ Gemini');
+                console.error('No text in response:', data);
+                throw new Error('API không trả về kết quả. Vui lòng thử lại');
             }
 
-            // If model responds with an apology message, show notice under chat and do not render mindmap
-            const apologyPhrases = [
-                'Xin lỗi, tôi không có thông tin về chủ đề này trong cơ sở dữ liệu hiện có',
-                'Xin lỗi, tôi không thể trả lời các câu hỏi ngoài phạm vi Kinh tế Chính trị Mác-Lênin'
-            ];
-            if (apologyPhrases.some(p => text.trim().includes(p))) {
-                setMindmapData(null);
-                setError('Xin lỗi, tôi không thể trả lời các câu hỏi ngoài phạm vi Kinh tế Chính trị Mác-Lênin.');
-                return null;
-            }
-
+            // Debug: Log raw response
+            console.log('=== Gemini Raw Response ===');
+            console.log('Length:', text.length);
+            console.log('Content:', text);
+            console.log('==========================');
+  
             // Try strict JSON parse first; fall back to extracting the first JSON block
             let parsed: MindmapResponse | null = null;
             try {
-                parsed = JSON.parse(text);
-            } catch {
-                const match = text.match(/\{[\s\S]*\}/);
+                const cleaned = text.replace(/```json\s*/gi, '').replace(/```/g, '').trim();
+                const balanced = extractFirstBalancedJsonObject(cleaned);
+                parsed = JSON.parse(balanced ?? cleaned);
+            } catch (error) {
+                console.log('JSON parse failed, trying to extract JSON block...');
+                const cleaned = text.replace(/```json\s*/gi, '').replace(/```/g, '').trim();
+                const balanced = extractFirstBalancedJsonObject(cleaned);
+                const match = balanced ? [balanced] : cleaned.match(/\{[\s\S]*\}/);
                 if (match) {
+                    console.log('Found JSON block:', match[0]);
                     parsed = JSON.parse(match[0]);
                 }
             }
