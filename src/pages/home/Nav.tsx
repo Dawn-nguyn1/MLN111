@@ -54,26 +54,19 @@ export default function Nav() {
                             Tóm Tắt
                         </a>
                         <Link
-                            href="/case-generator"
+                            href="/concept-example"
                             className={`flex items-center gap-1 transition-colors ${theme === "dark" ? "hover:text-blue-400" : "hover:text-blue-600"
                                 }`}
                         >
                             <Sparkles className="w-4 h-4" />
-                            Tạo ví dụ
+                            Ví Dụ Khái Niệm
                         </Link>
                         <Link
-                            href="/mindmap"
+                            href="/giai-cap-mindmap"
                             className={`transition-colors ${theme === "dark" ? "hover:text-blue-400" : "hover:text-blue-600"
                                 }`}
                         >
                             MindMap
-                        </Link>
-                        <Link
-                            href="/chat"
-                            className={`transition-colors ${theme === "dark" ? "hover:text-blue-400" : "hover:text-blue-600"
-                                }`}
-                        >
-                            Chatbot
                         </Link>
                         <Link
                             href="/practice"

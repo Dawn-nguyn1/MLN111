@@ -40,7 +40,7 @@ export default function Footer() {
                     </div>
                 </div>
                 <div className={`border-t pt-8 text-center text-sm transition-all duration-300 ${theme === "dark" ? "border-slate-700 text-slate-400" : "border-slate-300 text-slate-600"}`}>
-                    <p>&copy; 2024 Công Nghiệp Hóa Việt Nam. Tất cả các quyền được bảo lưu.</p>
+                    <p>&copy; 2026 Giai Cấp Và Dân Tộc. Tất cả các quyền được bảo lưu.</p>
                 </div>
             </div>
         </footer>

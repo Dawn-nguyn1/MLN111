@@ -7,8 +7,9 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import { AuthProvider } from "./contexts/AuthContext";
 import Home from "./pages/Home";
 import CaseGenerator from "./pages/CaseGenerator";
+import ConceptExample from "./pages/ConceptExample";
 import MindMap from "./pages/MindMap";
-import Chatbot from "./pages/Chatbot";
+import FinalMindMap from "./pages/FinalMindMap";
 import Practice from "./pages/Practice";
 import Login from "./pages/Login";
 
@@ -18,8 +19,9 @@ function Router() {
       <Route path={"/"} component={Home} />
       <Route path={"/login"} component={Login} />
       <Route path={"/case-generator"} component={CaseGenerator} />
+      <Route path={"/concept-example"} component={ConceptExample} />
       <Route path={"/mindmap"} component={MindMap} />
-      <Route path={"/chat"} component={Chatbot} />
+      <Route path={"/giai-cap-mindmap"} component={FinalMindMap} />
       <Route path={"/practice"} component={Practice} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
