@@ -47,9 +47,6 @@ export default function MindMap() {
         navigate('/');
     };
 
-    const handleNavigateChat = () => {
-        navigate('/chat');
-    };
 
     const handleToggleTheme = () => {
         toggleTheme?.();
@@ -63,7 +60,6 @@ export default function MindMap() {
             <MindMapHeader
                 onToggleTheme={handleToggleTheme}
                 onNavigateHome={handleNavigateHome}
-                onNavigateChat={handleNavigateChat}
             />
 
             {/* Main Content */}
@@ -94,7 +90,7 @@ export default function MindMap() {
                                 value={prompt}
                                 onChange={(e) => setPrompt(e.target.value)}
                                 onKeyDown={handleKeyDown}
-                                placeholder="Ví dụ: Giải thích về chế độ sản xuất tư bản..."
+                                placeholder="Ví dụ: Giải thích về sự khác biệt giữa thị tộc và bộ lạc..."
                                 disabled={!hasApiConfig || loading}
                                 className={`w-full h-32 p-4 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none transition-all ${theme === 'dark'
                                     ? 'bg-slate-700/50 border-slate-600 text-white placeholder-gray-400'
@@ -149,7 +145,7 @@ export default function MindMap() {
                         ? 'bg-blue-900/20 border-blue-700/30 text-blue-200'
                         : 'bg-blue-100/30 border-blue-300/30 text-blue-800'
                         } text-xs`}>
-                        <strong>Mẹo:</strong> Nhập chi tiết hơn để có mindmap chi tiết hơn. Bạn có thể prompt về các lý thuyết kinh tế chính trị, giai đoạn phát triển, v.v.
+                        <strong>Mẹo:</strong> Nhập chi tiết hơn để có mindmap chi tiết hơn. Bạn có thể prompt về các giai cấp xã hội, cấu trúc gia tộc, sự phát triển cộng đồng, v.v.
                     </div>
 
                     {/* Divider */}
