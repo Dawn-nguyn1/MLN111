@@ -75,6 +75,13 @@ export default function Nav() {
                         >
                             Practice
                         </Link>
+                        <Link
+                            href="/support"
+                            className={`transition-colors ${theme === "dark" ? "hover:text-blue-400" : "hover:text-blue-600"
+                                }`}
+                        >
+                            Q&A
+                        </Link>
                     </div>
 
                     {user ? (
