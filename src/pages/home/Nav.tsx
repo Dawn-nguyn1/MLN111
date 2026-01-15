@@ -69,6 +69,13 @@ export default function Nav() {
                             MindMap
                         </Link>
                         <Link
+                            href="/chat"
+                            className={`transition-colors ${theme === "dark" ? "hover:text-blue-400" : "hover:text-blue-600"
+                                }`}
+                        >
+                            Chatbot
+                        </Link>
+                        <Link
                             href="/practice"
                             className={`transition-colors ${theme === "dark" ? "hover:text-blue-400" : "hover:text-blue-600"
                                 }`}

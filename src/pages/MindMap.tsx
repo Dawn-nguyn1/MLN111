@@ -43,6 +43,10 @@ export default function MindMap() {
     //     setPrompt(appliedPrompt);
     // };
 
+    const handleNavigateChat = () => {
+        navigate('/chat');
+    };
+
     const handleNavigateHome = () => {
         navigate('/');
     };
@@ -60,6 +64,7 @@ export default function MindMap() {
             <MindMapHeader
                 onToggleTheme={handleToggleTheme}
                 onNavigateHome={handleNavigateHome}
+                onNavigateChat={handleNavigateChat}
             />
 
             {/* Main Content */}

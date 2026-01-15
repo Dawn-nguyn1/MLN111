@@ -51,7 +51,7 @@ export default function Chatbot() {
             const botId = `${id}-bot`;
             setMessages(prev => [...prev, { id: botId, from: 'bot', text: 'Đang trả lời...' }]);
             const res = await ask(text);
-            setMessages(prev => prev.map(m => m.id === botId ? { ...m, text: res ?? 'Không có câu trả lời.' } : m));
+            setMessages(prev => prev.map(m => m.id === botId ? { ...m, text: res ?? 'Không nhận được phản hồi từ AI.' } : m));
         } catch (e) {
             setMessages(prev => [...prev, { id: `err-${Date.now()}`, from: 'bot', text: 'Có lỗi khi gọi API. Vui lòng thử lại.' }]);
         }
