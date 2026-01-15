@@ -2,6 +2,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import type { ReactNode } from "react";
 import { useLocation } from "wouter";
+import { incrementVisitorCount } from "../components/VisitorCounter";
 
 // 1. Định nghĩa kiểu dữ liệu User
 export type UserRole = "admin" | "user";
@@ -55,6 +56,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       };
       setUser(userData);
       localStorage.setItem("currentUser", JSON.stringify(userData));
+      
+      // Tăng lượt truy cập khi đăng nhập thành công
+      incrementVisitorCount();
+      
       return true;
     }
     return false;
