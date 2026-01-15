@@ -12,6 +12,7 @@ import CaseGenerator from "./pages/CaseGenerator";
 import ConceptExample from "./pages/ConceptExample";
 import MindMap from "./pages/MindMap";
 import FinalMindMap from "./pages/FinalMindMap";
+import Chatbot from "./pages/Chatbot";
 import Practice from "./pages/Practice";
 import Login from "./pages/Login";
 import Support from "./pages/Support";
@@ -26,6 +27,7 @@ function Router() {
       <Route path={"/concept-example"} component={ConceptExample} />
       <Route path={"/mindmap"} component={MindMap} />
       <Route path={"/giai-cap-mindmap"} component={FinalMindMap} />
+      <Route path={"/chat"} component={Chatbot} />
       <Route path={"/practice"} component={Practice} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}

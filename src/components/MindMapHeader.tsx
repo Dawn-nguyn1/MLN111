@@ -4,10 +4,11 @@ import { useTheme } from '../contexts/ThemeContext';
 interface MindMapHeaderProps {
     onToggleTheme: () => void;
     onNavigateHome: () => void;
+    onNavigateChat?: () => void;
     onNavigateMindMap?: () => void;
 }
 
-export default function MindMapHeader({ onToggleTheme, onNavigateHome, onNavigateMindMap }: MindMapHeaderProps) {
+export default function MindMapHeader({ onToggleTheme, onNavigateHome, onNavigateChat, onNavigateMindMap }: MindMapHeaderProps) {
     const { theme } = useTheme();
 
     const navBgClass = theme === 'dark'
@@ -34,6 +35,14 @@ export default function MindMapHeader({ onToggleTheme, onNavigateHome, onNavigat
                         </div>
                     </div>
                     <div className="flex items-center gap-3">
+                        {onNavigateChat && (
+                            <button
+                                onClick={onNavigateChat}
+                                className={`px-3 py-2 rounded-lg transition-colors text-sm font-medium ${linkHoverClass}`}
+                            >
+                                💬 Chat
+                            </button>
+                        )}
                         {onNavigateMindMap && (
                             <button
                                 onClick={onNavigateMindMap}

@@ -21,7 +21,7 @@ interface QuizResult {
 
 const TOTAL_QUIZ_TIME = 600; // 10 minutes in seconds
 
-export default function PracticeQuiz() {
+export default function PracticeQuiz({ onImportQuestion }: { onImportQuestion?: (questions: any[]) => void }) {
     const { theme } = useTheme();
     const { loading, error, questions, generateQuestions } = useGeminiPractice();
 
@@ -45,6 +45,7 @@ export default function PracticeQuiz() {
     const [score, setScore] = useState(0);
     const [quizStarted, setQuizStarted] = useState(false);
     const [quizCompleted, setQuizCompleted] = useState(false);
+    const [selectedQuestionsForImport, setSelectedQuestionsForImport] = useState<Set<number>>(new Set());
 
     // Timer effect for total quiz time - only start after questions are loaded
     useEffect(() => {
@@ -257,6 +258,24 @@ export default function PracticeQuiz() {
         }
 
 
+        const handleToggleQuestion = (idx: number) => {
+            setSelectedQuestionsForImport(prev => {
+                const newSet = new Set(prev);
+                if (newSet.has(idx)) {
+                    newSet.delete(idx);
+                } else {
+                    newSet.add(idx);
+                }
+                return newSet;
+            });
+        };
+
+        const handleImportSelected = () => {
+            if (selectedQuestionsForImport.size === 0) return;
+            const selectedQuestions = Array.from(selectedQuestionsForImport).map(idx => questions[idx]);
+            onImportQuestion?.(selectedQuestions);
+        };
+
         return (
             <div className={`w-full min-h-screen ${bgGradient} flex items-center justify-center p-4`}>
                 <motion.div
@@ -291,6 +310,66 @@ export default function PracticeQuiz() {
                         </p>
                     </div>
 
+                    {/* Question Selection for Import */}
+                    {onImportQuestion && questions.length > 0 && (
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className={`mb-8 p-6 rounded-lg border ${theme === 'dark'
+                                ? 'bg-slate-700/30 border-slate-600/50'
+                                : 'bg-blue-50/50 border-blue-200/50'
+                                }`}
+                        >
+                            <h3 className={`text-lg font-bold mb-4 ${textColor}`}>
+                                📤 Chọn câu hỏi để import vào Chat
+                            </h3>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-64 overflow-y-auto">
+                                {questions.map((q, idx) => (
+                                    <motion.button
+                                        key={idx}
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
+                                        onClick={() => handleToggleQuestion(idx)}
+                                        className={`p-3 text-left rounded-lg border-2 transition-all ${selectedQuestionsForImport.has(idx)
+                                            ? theme === 'dark'
+                                                ? 'bg-blue-500/20 border-blue-500/50'
+                                                : 'bg-blue-100/50 border-blue-500/50'
+                                            : theme === 'dark'
+                                                ? 'bg-slate-700/20 border-slate-600/30 hover:border-slate-500/50'
+                                                : 'bg-gray-100/30 border-gray-300/30 hover:border-gray-400/50'
+                                            }`}
+                                    >
+                                        <div className="flex items-start gap-3">
+                                            <div className={`mt-1 w-5 h-5 rounded border flex items-center justify-center flex-shrink-0 ${selectedQuestionsForImport.has(idx)
+                                                ? 'bg-blue-500 border-blue-500 text-white'
+                                                : 'border-gray-400'
+                                                }`}>
+                                                {selectedQuestionsForImport.has(idx) && '✓'}
+                                            </div>
+                                            <div className="flex-1 min-w-0">
+                                                <p className={`text-sm line-clamp-2 ${textColor}`}>
+                                                    {q.question}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </motion.button>
+                                ))}
+                            </div>
+
+                            {selectedQuestionsForImport.size > 0 && (
+                                <motion.button
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    onClick={handleImportSelected}
+                                    className="w-full mt-4 py-2 px-4 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 rounded-lg font-semibold text-white transition-all"
+                                >
+                                    Import {selectedQuestionsForImport.size} câu vào Chat
+                                </motion.button>
+                            )}
+                        </motion.div>
+                    )}
 
                     <div className="space-y-3">
                         <motion.button

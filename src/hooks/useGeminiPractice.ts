@@ -76,7 +76,10 @@ IMPORTANT JSON RULES:
         setQuestions([]);
 
         try {
-            // Content from NoiDung.md about Giai cấp và Dân tộc
+            // Add random seed for variety
+            const randomSeed = Math.random().toString(36).substring(7);
+            const timestamp = new Date().toISOString();
+
             const noiDungContent = `# TRIẾT HỌC MÁC – LÊNIN
 ## II. GIAI CẤP VÀ DÂN TỘC
 
@@ -84,7 +87,7 @@ IMPORTANT JSON RULES:
 
 Giai cấp là những tập đoàn người có địa vị kinh tế – xã hội khác nhau trong một hệ thống sản xuất xã hội nhất định. Địa vị kinh tế – xã hội của các giai cấp được quy định chủ yếu bởi các mối quan hệ kinh tế – vật chất giữa các tập đoàn người trong quá trình sản xuất xã hội.
 
-Thực chất của quan hệ giai cấp là quan hệ giữa bóc lột và bị bóc lột, trong đó tập đoàn người này chiếm đoạt lao động của tập đoàn người khác.
+Thực chất của quan hệ giai cấp là quan hệ giữa bóc lột và bị bóc lột, là sự chiếm đoạt lao động của tập đoàn người này đối với tập đoàn người khác.
 
 #### Định nghĩa giai cấp
 Giai cấp là những tập đoàn người khác nhau:
@@ -92,6 +95,8 @@ Giai cấp là những tập đoàn người khác nhau:
 * Về quan hệ của họ đối với tư liệu sản xuất.
 * Về vai trò của họ trong tổ chức lao động xã hội.
 * Về quan hệ phân phối sản phẩm xã hội.
+
+Quan hệ giai cấp là quan hệ giữa bóc lột và bị bóc lột, là sự chiếm đoạt lao động của tập đoàn người này đối với tập đoàn người khác.
 
 #### Nguồn gốc của sự phân hóa giai cấp
 * **Nguồn gốc trực tiếp**: sự ra đời và tồn tại của chế độ chiếm hữu tư nhân về tư liệu sản xuất.
@@ -104,6 +109,39 @@ Giai cấp là những tập đoàn người khác nhau:
 1. **Đấu tranh kinh tế**: nhằm bảo vệ lợi ích thiết thân của công nhân
 2. **Đấu tranh chính trị**: nhằm lật đổ ách thống trị của giai cấp tư sản
 3. **Đấu tranh tư tưởng**: phủ định biện chứng hệ tư tưởng của giai cấp thống trị
+
+#### Đấu tranh giai cấp trong thời kỳ quá độ lên chủ nghĩa xã hội
+Mặc dù giai cấp tư sản bị đánh đổ về mặt chính quyền, nhưng vẫn còn tiềm lực về kinh tế, chính trị và tư tưởng.
+
+**Điều kiện mới**:
+* Cơ cấu và địa vị các giai cấp biến đổi căn bản, tạo so sánh lực lượng có lợi cho giai cấp vô sản.
+* Các lực lượng phản cách mạng bị thu hẹp và phân hóa.
+* Giai cấp vô sản còn hạn chế về kinh nghiệm quản lý xã hội.
+* Các thế lực thù địch tiếp tục chống phá bằng nhiều âm mưu, thủ đoạn.
+* Tàn dư tư tưởng, tâm lý, tập quán của xã hội cũ vẫn tồn tại.
+
+**Nội dung mới**:
+* Mục tiêu xây dựng thành công chủ nghĩa xã hội trên các lĩnh vực kinh tế, chính trị, tư tưởng, văn hóa.
+* Thực hiện hai nhiệm vụ chiến lược: bảo vệ thành quả cách mạng và cải tạo xã hội cũ; xây dựng xã hội mới.
+
+**Hình thức mới**:
+* Kết hợp đa dạng các hình thức: bạo lực và hòa bình, quân sự và kinh tế, giáo dục và hành chính… tùy điều kiện lịch sử cụ thể của mỗi quốc gia.
+
+#### Đặc điểm đấu tranh giai cấp ở Việt Nam
+Quá độ lên chủ nghĩa xã hội ở Việt Nam là quá độ gián tiếp từ xã hội thuộc địa, nửa phong kiến, bỏ qua chế độ tư bản chủ nghĩa. Trong thời kỳ này:
+* Vẫn còn cơ sở kinh tế nảy sinh giai cấp bóc lột.
+* Mâu thuẫn giai cấp vẫn tồn tại.
+* Các thế lực phản động tiếp tục chống phá.
+* Tàn dư tư tưởng phong kiến, tư sản, thực dân cũ và mới còn ảnh hưởng.
+
+Điều kiện thuận lợi gồm:
+* Giai cấp công nhân giữ vai trò lãnh đạo.
+* Liên minh công – nông – trí thức được củng cố.
+* Vai trò lãnh đạo của Đảng Cộng sản Việt Nam được tăng cường.
+* Nhà nước pháp quyền xã hội chủ nghĩa được hoàn thiện.
+* Thành tựu cách mạng, khoa học – công nghệ, hội nhập quốc tế.
+
+Hình thức đấu tranh đa dạng, linh hoạt: kết hợp cải tạo và xây dựng, hành chính và giáo dục, phát triển kinh tế thị trường định hướng xã hội chủ nghĩa, mở cửa hội nhập gắn với củng cố quốc phòng – an ninh.
 
 ### 2. Dân tộc
 
@@ -122,17 +160,38 @@ Dân tộc là một cộng đồng người ổn định, hình thành trên c�
 * Nền văn hóa và tâm lý, tính cách bền vững.
 * Có nhà nước và pháp luật thống nhất.
 
+Ở châu Âu, dân tộc hình thành gắn liền với sự ra đời của chủ nghĩa tư bản.
+
+Ở phương Đông, dân tộc ra đời rất sớm và không gắn trực tiếp với sự ra đời của chủ nghĩa tư bản.
+
+Dân tộc Việt Nam hình thành sớm, gắn liền với quá trình đấu tranh chống ngoại xâm, cải tạo thiên nhiên và bảo vệ bản sắc văn hóa dân tộc, bắt đầu từ khi nước Đại Việt giành độc lập.
+
 ### 3. Mối quan hệ giữa giai cấp – dân tộc – nhân loại
-Giai cấp có trước dân tộc hàng nghìn năm. Khi giai cấp mất đi, dân tộc vẫn tiếp tục tồn tại lâu dài. Trong một dân tộc có nhiều giai cấp, và một giai cấp có thể tồn tại trong nhiều dân tộc.`;
+Giai cấp có trước dân tộc hàng nghìn năm. Khi giai cấp mất đi, dân tộc vẫn tiếp tục tồn tại lâu dài. Trong một dân tộc có nhiều giai cấp, và một giai cấp có thể tồn tại trong nhiều dân tộc.
+
+Quan hệ giai cấp quyết định khuynh hướng phát triển và tính chất của dân tộc. Sự hình thành dân tộc tạo điều kiện thuận lợi cho đấu tranh giai cấp; đấu tranh giải phóng dân tộc là tiền đề cho đấu tranh giải phóng giai cấp. Trong thời đại ngày nay, đấu tranh giai cấp và đấu tranh dân tộc gắn bó chặt chẽ với nhau.
+
+Nhân loại là toàn thể cộng đồng người sống trên Trái Đất. Bản chất xã hội của con người là cơ sở của tính thống nhất toàn nhân loại.
+
+Giai cấp, dân tộc và nhân loại có mối quan hệ biện chứng:
+* Sự tồn tại của nhân loại là tiền đề cho sự tồn tại của giai cấp và dân tộc.
+* Trong xã hội có giai cấp, lợi ích nhân loại gắn liền và bị chi phối bởi lợi ích giai cấp và dân tộc.
+* Sự phát triển của nhân loại tạo điều kiện thuận lợi cho đấu tranh giai cấp và đấu tranh dân tộc.`;
 
             const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
             const prompt = `${systemPrompt}
 
-Based on this content about "Giai cấp và Dân tộc":
+Based on this content about "Giai cấp và Dân tộc" (Session ID: ${randomSeed}, Timestamp: ${timestamp}):
 ${noiDungContent}
 
-Generate 10 practice questions in Vietnamese covering all the main concepts mentioned above.`;
+Generate 10 UNIQUE and VARIED practice questions in Vietnamese covering all the main concepts mentioned above. Each time generate different questions with different angles, examples, and perspectives. Focus on:
+- Different aspects of each concept
+- Various question types (definition, comparison, application, analysis)
+- Different examples and scenarios
+- Varying difficulty levels
+
+IMPORTANT: Create completely new questions that haven't been generated before. Be creative and comprehensive.`;
 
             const response = await fetch(endpoint, {
                 method: 'POST',
@@ -146,7 +205,9 @@ Generate 10 practice questions in Vietnamese covering all the main concepts ment
                         }]
                     }],
                     generationConfig: {
-                        temperature: 0.7,
+                        temperature: 0.9, // Increased for more variety
+                        topP: 0.95,
+                        topK: 40,
                         maxOutputTokens: 4000,
                     }
                 })

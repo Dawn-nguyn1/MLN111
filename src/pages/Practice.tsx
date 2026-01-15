@@ -2,14 +2,16 @@ import { Sun, Moon, Brain } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
 import { useLocation } from 'wouter';
 import PracticeQuiz from '../components/PracticeQuiz';
+import type { QuestionWithType } from '../hooks/useGeminiPractice';
 
 interface PracticeHeaderProps {
     onToggleTheme: () => void;
     onNavigateHome: () => void;
+    onNavigateChat?: () => void;
     onNavigateMindMap?: () => void;
 }
 
-function PracticeHeader({ onToggleTheme, onNavigateHome, onNavigateMindMap }: PracticeHeaderProps) {
+function PracticeHeader({ onToggleTheme, onNavigateHome, onNavigateChat, onNavigateMindMap }: PracticeHeaderProps) {
     const { theme } = useTheme();
 
     const navBgClass = theme === 'dark'
@@ -36,6 +38,14 @@ function PracticeHeader({ onToggleTheme, onNavigateHome, onNavigateMindMap }: Pr
                         </div>
                     </div>
                     <div className="flex items-center gap-3">
+                        {onNavigateChat && (
+                            <button
+                                onClick={onNavigateChat}
+                                className={`px-3 py-2 rounded-lg transition-colors text-sm font-medium ${linkHoverClass}`}
+                            >
+                                💬 Chat
+                            </button>
+                        )}
                         {onNavigateMindMap && (
                             <button
                                 onClick={onNavigateMindMap}
@@ -64,6 +74,14 @@ function PracticeHeader({ onToggleTheme, onNavigateHome, onNavigateMindMap }: Pr
             {/* Bottom Navigation Bar */}
             <div className={`fixed bottom-0 w-full z-40 backdrop-blur-sm transition-colors duration-300 ${navBgClass} border-t md:hidden`}>
                 <div className="px-4 py-2 flex justify-around">
+                    {onNavigateChat && (
+                        <button
+                            onClick={onNavigateChat}
+                            className={`px-3 py-2 rounded-lg transition-colors text-xs font-medium ${linkHoverClass}`}
+                        >
+                            💬
+                        </button>
+                    )}
                     {onNavigateMindMap && (
                         <button
                             onClick={onNavigateMindMap}
@@ -97,8 +115,19 @@ export default function Practice() {
     };
 
 
+    const handleNavigateChat = () => {
+        navigate('/chat');
+    };
+
     const handleNavigateMindMap = () => {
         navigate('/mindmap');
+    };
+
+    const handleImportQuestion = (questionsToImport: QuestionWithType[]) => {
+        // Store the imported questions in sessionStorage
+        sessionStorage.setItem('importedQuestions', JSON.stringify(questionsToImport));
+        // Navigate to chat
+        navigate('/chat');
     };
 
     return (
@@ -109,12 +138,13 @@ export default function Practice() {
             <PracticeHeader
                 onToggleTheme={handleToggleTheme}
                 onNavigateHome={handleNavigateHome}
+                onNavigateChat={handleNavigateChat}
                 onNavigateMindMap={handleNavigateMindMap}
             />
 
             {/* Main Content */}
             <div className="flex-1 flex overflow-hidden pt-20 pb-20 md:pb-0">
-                <PracticeQuiz />
+                <PracticeQuiz onImportQuestion={handleImportQuestion} />
             </div>
         </div>
     );
