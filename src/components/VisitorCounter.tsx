@@ -1,82 +1,84 @@
 import { useEffect, useState, useRef } from 'react';
 import { useLocation } from 'wouter';
+import { doc, getDoc, setDoc, onSnapshot, increment, updateDoc } from 'firebase/firestore';
+import { db } from '../firebase';
 
-const STORAGE_KEY = 'mln111-visitor-count';
+const COUNTER_DOC_ID = 'visitor-counter';
 
 // Export hàm để tăng counter từ bên ngoài (dùng khi login)
 // eslint-disable-next-line react-refresh/only-export-components
-export const incrementVisitorCount = () => {
-  const currentCount = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10);
-  const newCount = currentCount + 1;
-  localStorage.setItem(STORAGE_KEY, newCount.toString());
-  
-  // Dispatch event cho tab hiện tại
-  window.dispatchEvent(new Event('visitor-count-updated'));
-  
-  return newCount;
+export const incrementVisitorCount = async () => {
+  try {
+    const counterRef = doc(db, 'settings', COUNTER_DOC_ID);
+    const docSnap = await getDoc(counterRef);
+    
+    if (!docSnap.exists()) {
+      // Nếu chưa có, tạo mới
+      await setDoc(counterRef, { count: 1 });
+    } else {
+      // Nếu có rồi, tăng lên
+      await updateDoc(counterRef, { count: increment(1) });
+    }
+    console.log("✅ Tăng visitor count trên Firebase");
+  } catch (error) {
+    console.error("❌ Lỗi khi tăng counter:", error);
+  }
 };
 
 const VisitorCounter = () => {
   const [count, setCount] = useState<number>(0);
+  const [isLoaded, setIsLoaded] = useState(false);
   const hasIncremented = useRef(false);
   const [location] = useLocation();
 
-  // Hàm đọc dữ liệu từ localStorage
-  const updateCountFromStorage = () => {
-    const currentCount = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10);
-    setCount(currentCount);
-  };
+  console.log("🎨 VisitorCounter render, count:", count, "isLoaded:", isLoaded);
 
+  // Kết nối Firebase Realtime để lắng nghe visitor count
   useEffect(() => {
-    // 1. Xử lý tăng đếm khi mới vào (chỉ chạy 1 lần)
-    if (!hasIncremented.current) {
+    const counterRef = doc(db, 'settings', COUNTER_DOC_ID);
+
+    // Khởi tạo hoặc tăng count (chỉ 1 lần)
+    const initCounter = async () => {
+      if (hasIncremented.current) return;
       hasIncremented.current = true;
-      
-      const currentCount = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10);
-      const newCount = currentCount + 1;
-      localStorage.setItem(STORAGE_KEY, newCount.toString());
-      setCount(newCount);
 
-      // Thử cập nhật từ API (fallback)
-      fetch('https://api.countapi.xyz/hit/mln111-web-counter/visits')
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.value) {
-            setCount(data.value);
-            localStorage.setItem(STORAGE_KEY, data.value.toString());
-          }
-        })
-        .catch((error) => {
-          console.log('Sử dụng bộ đếm local:', error.message);
-        });
-    } else {
-      // Nếu đã mount rồi thì chỉ cần lấy số hiện tại
-      updateCountFromStorage();
-    }
-  }, []);
-
-  // Lắng nghe sự kiện để đồng bộ giữa các tab
-  useEffect(() => {
-    // Xử lý sự kiện từ tab khác (Storage Event)
-    const handleStorageChange = (event: StorageEvent) => {
-      if (event.key === STORAGE_KEY) {
-        updateCountFromStorage();
+      try {
+        const docSnap = await getDoc(counterRef);
+        
+        if (!docSnap.exists()) {
+          // Tạo mới với count = 1
+          await setDoc(counterRef, { count: 1 });
+          console.log("🔧 Khởi tạo counter = 1");
+        } else {
+          // Tăng count hiện tại
+          await updateDoc(counterRef, { count: increment(1) });
+          console.log("✅ Tăng visitor count +1");
+        }
+      } catch (error) {
+        console.error("❌ Lỗi khởi tạo counter:", error);
       }
     };
 
-    // Xử lý sự kiện trong cùng tab (Custom Event)
-    const handleLocalUpdate = () => {
-      updateCountFromStorage();
-    };
+    initCounter();
 
-    window.addEventListener('storage', handleStorageChange);
-    window.addEventListener('visitor-count-updated', handleLocalUpdate);
+    // Lắng nghe realtime changes
+    const unsubscribe = onSnapshot(counterRef, (docSnapshot) => {
+      if (docSnapshot.exists()) {
+        const data = docSnapshot.data();
+        const newCount = data?.count || 0;
+        console.log("📊 Firebase count:", newCount);
+        setCount(newCount);
+        setIsLoaded(true);
+      }
+    });
 
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-      window.removeEventListener('visitor-count-updated', handleLocalUpdate);
-    };
+    return () => unsubscribe();
   }, []);
+
+  // Ẩn counter ở trang login
+  if (location === '/login') {
+    return null;
+  }
 
   // Ẩn counter ở trang login
   if (location === '/login') {
@@ -103,7 +105,9 @@ const VisitorCounter = () => {
         <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
         <circle cx="12" cy="12" r="3" />
       </svg>
-      <span className="font-semibold">Lượt truy cập: {count.toLocaleString()}</span>
+      <span className="font-semibold">
+        Lượt truy cập: {isLoaded ? count.toLocaleString() : "..."}
+      </span>
     </div>
   );
 };

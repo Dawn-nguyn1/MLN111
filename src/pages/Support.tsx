@@ -66,7 +66,7 @@ function UserView({ user, questions, sendQuestion, questionContent, setQuestionC
     
     setIsSubmitting(true);
     try {
-      sendQuestion(user.username, user.name, questionContent);
+      await sendQuestion(user.username, user.name, questionContent);
       setQuestionContent("");
       toast.success("✓ Đã gửi câu hỏi thành công! Admin sẽ phản hồi sớm.");
     } catch {
@@ -223,7 +223,7 @@ function AdminView({ questions, replyQuestion, adminName }: AdminViewProps) {
             key={q.id} 
             question={q} 
             isAdmin={true} 
-            onReply={(id, content) => replyQuestion(id, adminName, content)} 
+            onReply={async (id, content) => replyQuestion(id, adminName, content)} 
           />
         ))
       )}
@@ -232,15 +232,19 @@ function AdminView({ questions, replyQuestion, adminName }: AdminViewProps) {
 }
 
 // --- Component hiển thị từng câu hỏi ---
-function QuestionItem({ question, isAdmin, onReply }: { question: Question, isAdmin: boolean, onReply?: (id: string, c: string) => void }) {
+function QuestionItem({ question, isAdmin, onReply }: { question: Question, isAdmin: boolean, onReply?: (id: string, c: string) => Promise<void> }) {
   const [replyText, setReplyText] = useState("");
   const isPending = question.status === "pending";
 
-  const handleSubmitReply = () => {
+  const handleSubmitReply = async () => {
     if(onReply && replyText.trim()) {
-        onReply(question.id, replyText);
+      try {
+        await onReply(question.id, replyText);
         setReplyText("");
         toast.success("Đã trả lời!");
+      } catch {
+        toast.error("Lỗi khi trả lời!");
+      }
     }
   };
 

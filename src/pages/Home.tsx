@@ -14,11 +14,16 @@ import { toast } from "sonner";
 export default function Home() {
   const { user } = useAuth();
 
-  const handleResetCounter = () => {
-    localStorage.setItem('mln111-visitor-count', '0');
-    window.dispatchEvent(new Event('visitor-count-updated'));
-    toast.success("✅ Đã reset lượt truy cập về 0!");
-    setTimeout(() => location.reload(), 500);
+  const handleResetCounter = async () => {
+    try {
+      const { doc, setDoc } = await import('firebase/firestore');
+      const { db } = await import('../firebase');
+      await setDoc(doc(db, 'settings', 'visitor-counter'), { count: 0 });
+      toast.success("✅ Đã reset lượt truy cập về 0!");
+    } catch (error) {
+      console.error(error);
+      toast.error("❌ Lỗi khi reset counter!");
+    }
   };
 
   return (
