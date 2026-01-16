@@ -35,9 +35,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [, setLocation] = useLocation();
 
-  // (Tùy chọn) Kiểm tra localStorage khi tải trang để giữ đăng nhập
+  // Kiểm tra sessionStorage khi tải trang để giữ đăng nhập
+  // sessionStorage vẫn tồn tại khi reload page, nhưng không chia sẻ giữa các tab
   useEffect(() => {
-    const storedUser = localStorage.getItem("currentUser");
+    const storedUser = sessionStorage.getItem("currentUser");
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
@@ -55,9 +56,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         role: account.role as UserRole,
       };
       setUser(userData);
-      localStorage.setItem("currentUser", JSON.stringify(userData));
       
-      // Tăng lượt truy cập khi đăng nhập thành công
+      // SỬA: Dùng sessionStorage thay vì localStorage
+      sessionStorage.setItem("currentUser", JSON.stringify(userData));
+      
+      // Counter vẫn dùng localStorage (trong hàm incrementVisitorCount)
+      // nên vẫn đồng bộ số lượng người truy cập giữa các tab
       incrementVisitorCount();
       
       return true;
@@ -67,8 +71,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem("currentUser");
-    setLocation("/login"); // Chuyển hướng về trang login sau khi đăng xuất
+    // SỬA: Xóa khỏi sessionStorage
+    sessionStorage.removeItem("currentUser");
+    setLocation("/login");
   };
 
   return (
