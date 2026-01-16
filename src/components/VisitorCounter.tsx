@@ -1,14 +1,16 @@
 import { useEffect, useState, useRef } from 'react';
 import { useLocation } from 'wouter';
 
+const STORAGE_KEY = 'mln111-visitor-count';
+
 // Export hàm để tăng counter từ bên ngoài (dùng khi login)
+// eslint-disable-next-line react-refresh/only-export-components
 export const incrementVisitorCount = () => {
-  const storageKey = 'mln111-visitor-count';
-  const currentCount = parseInt(localStorage.getItem(storageKey) || '1000', 10);
+  const currentCount = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10);
   const newCount = currentCount + 1;
-  localStorage.setItem(storageKey, newCount.toString());
+  localStorage.setItem(STORAGE_KEY, newCount.toString());
   
-  // Dispatch event để component cập nhật
+  // Dispatch event cho tab hiện tại
   window.dispatchEvent(new Event('visitor-count-updated'));
   
   return newCount;
@@ -19,42 +21,61 @@ const VisitorCounter = () => {
   const hasIncremented = useRef(false);
   const [location] = useLocation();
 
+  // Hàm đọc dữ liệu từ localStorage
+  const updateCountFromStorage = () => {
+    const currentCount = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10);
+    setCount(currentCount);
+  };
+
   useEffect(() => {
-    if (hasIncremented.current) return;
-    hasIncremented.current = true;
+    // 1. Xử lý tăng đếm khi mới vào (chỉ chạy 1 lần)
+    if (!hasIncremented.current) {
+      hasIncremented.current = true;
+      
+      const currentCount = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10);
+      const newCount = currentCount + 1;
+      localStorage.setItem(STORAGE_KEY, newCount.toString());
+      setCount(newCount);
 
-    const storageKey = 'mln111-visitor-count';
-    
-    // Tăng số đếm mỗi lần reload
-    const currentCount = parseInt(localStorage.getItem(storageKey) || '1000', 10);
-    const newCount = currentCount + 1;
-    localStorage.setItem(storageKey, newCount.toString());
-    setCount(newCount);
-
-    // Thử cập nhật từ API
-    fetch('https://api.countapi.xyz/hit/mln111-web-counter/visits')
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.value) {
-          setCount(data.value);
-          localStorage.setItem(storageKey, data.value.toString());
-        }
-      })
-      .catch((error) => {
-        console.log('Sử dụng bộ đếm local:', error.message);
-      });
+      // Thử cập nhật từ API (fallback)
+      fetch('https://api.countapi.xyz/hit/mln111-web-counter/visits')
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.value) {
+            setCount(data.value);
+            localStorage.setItem(STORAGE_KEY, data.value.toString());
+          }
+        })
+        .catch((error) => {
+          console.log('Sử dụng bộ đếm local:', error.message);
+        });
+    } else {
+      // Nếu đã mount rồi thì chỉ cần lấy số hiện tại
+      updateCountFromStorage();
+    }
   }, []);
 
-  // Lắng nghe sự kiện cập nhật từ login
+  // Lắng nghe sự kiện để đồng bộ giữa các tab
   useEffect(() => {
-    const handleUpdate = () => {
-      const storageKey = 'mln111-visitor-count';
-      const currentCount = parseInt(localStorage.getItem(storageKey) || '1000', 10);
-      setCount(currentCount);
+    // Xử lý sự kiện từ tab khác (Storage Event)
+    const handleStorageChange = (event: StorageEvent) => {
+      if (event.key === STORAGE_KEY) {
+        updateCountFromStorage();
+      }
     };
 
-    window.addEventListener('visitor-count-updated', handleUpdate);
-    return () => window.removeEventListener('visitor-count-updated', handleUpdate);
+    // Xử lý sự kiện trong cùng tab (Custom Event)
+    const handleLocalUpdate = () => {
+      updateCountFromStorage();
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    window.addEventListener('visitor-count-updated', handleLocalUpdate);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('visitor-count-updated', handleLocalUpdate);
+    };
   }, []);
 
   // Ẩn counter ở trang login
