@@ -2,6 +2,10 @@ import { useEffect, useState, useRef } from 'react';
 import { useLocation } from 'wouter';
 import { doc, getDoc, setDoc, onSnapshot, increment, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase';
+import { useAuth } from '../contexts/AuthContext';
+import { Button } from './ui/button';
+import { RotateCcw } from 'lucide-react';
+import { toast } from 'sonner';
 
 const COUNTER_DOC_ID = 'visitor-counter';
 
@@ -30,6 +34,18 @@ const VisitorCounter = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const hasIncremented = useRef(false);
   const [location] = useLocation();
+  const { user } = useAuth();
+
+  const handleResetCounter = async () => {
+    try {
+      const counterRef = doc(db, 'settings', 'visitor-counter');
+      await setDoc(counterRef, { count: 0 });
+      toast.success("✅ Đã reset lượt truy cập về 0!");
+    } catch (error) {
+      console.error(error);
+      toast.error("❌ Lỗi khi reset counter!");
+    }
+  };
 
   console.log("🎨 VisitorCounter render, count:", count, "isLoaded:", isLoaded);
 
@@ -86,28 +102,41 @@ const VisitorCounter = () => {
   }
 
   return (
-    <div 
-      className="fixed bottom-4 left-4 z-[9999] flex items-center gap-2 rounded-full bg-black/90 px-4 py-2 text-sm text-white backdrop-blur-md shadow-2xl border border-white/20 transition-all hover:scale-105"
-      style={{ pointerEvents: 'auto' }}
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="animate-pulse"
+    <div className="fixed bottom-4 left-4 z-[9999] flex flex-col gap-2">
+      <div 
+        className="flex items-center gap-2 rounded-full bg-black/90 px-4 py-2 text-sm text-white backdrop-blur-md shadow-2xl border border-white/20 transition-all hover:scale-105"
+        style={{ pointerEvents: 'auto' }}
       >
-        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
-        <circle cx="12" cy="12" r="3" />
-      </svg>
-      <span className="font-semibold">
-        Lượt truy cập: {isLoaded ? count.toLocaleString() : "..."}
-      </span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="animate-pulse"
+        >
+          <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+          <circle cx="12" cy="12" r="3" />
+        </svg>
+        <span className="font-semibold">
+          Lượt truy cập: {isLoaded ? count.toLocaleString() : "..."}
+        </span>
+      </div>
+      {user?.role === "admin" && (
+        <Button
+          onClick={handleResetCounter}
+          className="gap-2 w-full"
+          variant="destructive"
+          size="sm"
+        >
+          <RotateCcw className="w-4 h-4" />
+          Reset Counter
+        </Button>
+      )}
     </div>
   );
 };

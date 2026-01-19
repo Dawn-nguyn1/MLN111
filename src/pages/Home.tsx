@@ -6,40 +6,11 @@ import Models from "./home/Models";
 import Vietnam from "./home/Vietnam";
 import CTA from "./home/CTA";
 import Footer from "./home/Footer";
-import { useAuth } from "../contexts/AuthContext";
-import { Button } from "../components/ui/button";
-import { RotateCcw } from "lucide-react";
-import { toast } from "sonner";
 
 export default function Home() {
-  const { user } = useAuth();
-
-  const handleResetCounter = async () => {
-    try {
-      const { doc, setDoc } = await import('firebase/firestore');
-      const { db } = await import('../firebase');
-      await setDoc(doc(db, 'settings', 'visitor-counter'), { count: 0 });
-      toast.success("✅ Đã reset lượt truy cập về 0!");
-    } catch (error) {
-      console.error(error);
-      toast.error("❌ Lỗi khi reset counter!");
-    }
-  };
-
   return (
     <div className="min-h-screen overflow-x-hidden">
       <Nav />
-      {user?.role === "admin" && (
-        <Button
-          onClick={handleResetCounter}
-          className="fixed top-20 right-4 z-[9999] gap-2"
-          variant="destructive"
-          size="sm"
-        >
-          <RotateCcw className="w-4 h-4" />
-          Reset Counter
-        </Button>
-      )}
       <Hero />
       <About />
       <Revolutions />

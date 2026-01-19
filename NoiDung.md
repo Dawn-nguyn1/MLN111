@@ -123,7 +123,11 @@ Hình thức đấu tranh đa dạng, linh hoạt: kết hợp cải tạo và x
 
 **Thị tộc** là hình thức cộng đồng người đầu tiên trong lịch sử xã hội loài người. Thị tộc được hình thành trên cơ sở quan hệ huyết thống, những người trong thị tộc có chung tổ tiên. Trong thị tộc, tư liệu sản xuất thuộc sở hữu chung, mọi người cùng lao động và hưởng thụ sản phẩm theo nguyên tắc bình quân. Chưa có sự phân chia giai cấp, chưa có bóc lột.
 
+vd: 1 gia đình nhưng có hàng chục con cháu, hoặc những người sống trong 1 vùng cụ thể tin rằng họ có chung 1 tổ tiên (thần thoại hoặc ko)
+
 **Bộ lạc** là sự liên minh của nhiều thị tộc có quan hệ huyết thống gần gũi, cùng sinh sống trên một vùng lãnh thổ tương đối ổn định. Bộ lạc có ngôn ngữ chung, phong tục tập quán chung và có tổ chức quản lý sơ khai (tù trưởng, hội đồng già làng). Bộ lạc đánh dấu bước phát triển cao hơn so với thị tộc nhưng vẫn thuộc xã hội chưa có giai cấp.
+
+vd: bộ lạc gồm các thị tộc sống gần nhau
 
 **Bộ tộc** là hình thức cộng đồng người phát triển cao hơn bộ lạc, hình thành khi các bộ lạc khác nhau liên kết lại với nhau trên cơ sở lãnh thổ, kinh tế và văn hóa tương đối ổn định. Trong bộ tộc đã xuất hiện sự phân hóa giàu nghèo, mầm mống của chế độ tư hữu và giai cấp, là tiền đề cho sự ra đời của dân tộc.
 
@@ -158,3 +162,11 @@ Giai cấp, dân tộc và nhân loại có mối quan hệ biện chứng:
 * Sự tồn tại của nhân loại là tiền đề cho sự tồn tại của giai cấp và dân tộc.
 * Trong xã hội có giai cấp, lợi ích nhân loại gắn liền và bị chi phối bởi lợi ích giai cấp và dân tộc.
 * Sự phát triển của nhân loại tạo điều kiện thuận lợi cho đấu tranh giai cấp và đấu tranh dân tộc.
+
+
+
+## THUYẾT TRÌNH WEB:
+* mô tả:
+Website này tập trung vào việc cung cấp thông tin và tài nguyên về chương giai cấp và giai tộc, và hỗ trợ sinh viên giải đáp thắc mắc về các vấn đề liên quan đến giai cấp và dân tộc.
+* lý do làm sản phẩm:
+Bọn mình muốn tạo ra 1 nơi hệ thống hóa kiến thức dễ học  cho người dùng với các phần như khái niệm, tóm tắt và các tính năng đi kèm nhằm hỗ trợ và nâng cao kiến thức cho những người có nhu cầu trong việc tìm kiếm thông tin, ôn tập kiến thức ,v.v.
