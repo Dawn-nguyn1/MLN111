@@ -59,7 +59,7 @@ export default function Nav() {
                                 }`}
                         >
                             <Sparkles className="w-4 h-4" />
-                            Ví Dụ Khái Niệm
+                            Ví Dụ 
                         </Link>
                         <Link
                             href="/giai-cap-mindmap"
